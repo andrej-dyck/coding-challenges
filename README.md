@@ -8,6 +8,8 @@ Build with `./gradlew build`. Test with `./gradlew test`.
 
 https://leetcode.com/problemset/all/
 
+_Note:_ With these exercises my goal was to solve these mostly in a functional approach. Further I tried to solve them within a given time limit (easy: < 20min, medium: < 60min).
+
 * [12. Integer to Roman](test/leetcode/RomanNumerals.kt)
 * [268. Missing Number](test/leetcode/MissingNumber.kt)
 * [278. First Bad Version](test/leetcode/FirstBadVersion.kt)
@@ -24,6 +26,31 @@ https://leetcode.com/problemset/all/
 * [1456. Maximum Number of Vowels in a Substring of Given Length](test/leetcode/MaximumNumberOfVowels.kt)
 * [1614. Maximum Nesting Depth of the Parentheses](test/leetcode/NestingDepthOfParentheses.kt)
 * [1672. Richest Customer Wealth](test/leetcode/RichestCustomerWealth.kt)
+
+### Exercism.io Exercises
+
+https://exercism.io/tracks/kotlin/exercises
+
+_Note:_ With these exercises my goal was to design proper object-oriented code.
+
+* [Acronym](test/exercism/Acronym.kt)
+* [Collatz Conjecture](test/exercism/CollatzCalculator.kt)
+* [Difference Of Squares](test/exercism/DifferenceOfSquares.kt)
+* [Gigasecond](test/exercism/Gigasecond.kt)
+* [Grains](test/exercism/Grains.kt)
+* [Hamming](test/exercism/Hamming.kt)
+* [Largest Series Product](test/exercism/LargesSeriesProduct.kt)
+* [Leap](test/exercism/LeapYear.kt)
+* [Luhn](test/exercism/Luhn.kt)
+* [Pangram](test/exercism/Pangram.kt)
+* [Perfect Numbers](test/exercism/PerfectNumbers.kt)
+* [Raindrops](test/exercism/Raindrops.kt)
+* [RNA Transcription](test/exercism/RnaTranscription.kt)
+* [Secret Handshake](test/exercism/SecretHandshake.kt)
+* [Sieve](test/exercism/Sieve.kt)
+* [Space Age](test/exercism/SpaceAge.kt)
+* [Sum of Multiples](test/exercism/SumOfMultiples.kt)
+* [Triangle](test/exercism/Triangle.kt)
 
 ### Miscellaneous
 
