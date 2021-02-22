@@ -17,11 +17,14 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.7.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.assertj:assertj-core:3.18.1")
+    testImplementation("net.jqwik:jqwik:1.5.0")
 }
 
 /* Compile to JVM 8 */
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 /* Source sets by Kotlin conventions /src and /test */
@@ -40,6 +43,7 @@ sourceSets.getByName("test") {
 /* Check with Junit 5 only */
 tasks.test {
     useJUnitPlatform {
+        includeEngines("junit-jupiter", "jqwik")
         excludeEngines("junit-vintage")
     }
 }
