@@ -15,6 +15,7 @@ _Note:_ With these exercises my goal was to solve these mostly in a functional a
 * [278. First Bad Version](test/leetcode/FirstBadVersion.kt)
 * [455. Assign Cookies](test/leetcode/AssignCookies.kt)
 * [482. License Key Formatting](test/leetcode/LicenseKeyFormatting.kt)
+* [665. Non-decreasing Array](test/leetcode/NonDecreasingArray.kt)
 * [771. Jewels and Stones](test/leetcode/JewelsAndStones.kt)
 * [794. Valid Tic-Tac-Toe State](test/leetcode/ValidTicTacToeState.kt)
 * [854. K-Similar Strings](test/leetcode/KSimilarStrings.kt)
