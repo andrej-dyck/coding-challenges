@@ -57,4 +57,5 @@ _Note:_ With these exercises my goal was to design proper object-oriented code.
 * [Binomial Coefficient](test/misc/BinomialCoefficient.kt)
 * [DSFinV-K CSV Fields for TSS Certificate](test/misc/TseCertificateCsvFields.kt)
 * [Factorial](test/misc/Factorial.kt)
+* [Fizz Buzz](test/misc/FizzBuzz.kt)
 * [Sieve of Eratosthenes](test/misc/SieveOfEratosthenes.kt)

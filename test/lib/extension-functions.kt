@@ -28,3 +28,5 @@ infix fun Int.isMultipleOf(number: Int) = this isDivisibleBy number
 
 fun Double.round(decimals: Int) =
     BigDecimal(this).setScale(decimals, RoundingMode.HALF_UP).toDouble()
+
+fun String.isANumber() = this.toIntOrNull() != null
