@@ -11,6 +11,7 @@ https://leetcode.com/problemset/all/
 _Note:_ With these exercises my goal was to solve these mostly in a functional approach. Further I tried to solve them within a given time limit (easy: < 20min, medium: < 60min).
 
 * [12. Integer to Roman](test/leetcode/RomanNumerals.kt)
+* [79. Word Search](test/leetcode/WordSearch.kt)
 * [268. Missing Number](test/leetcode/MissingNumber.kt)
 * [278. First Bad Version](test/leetcode/FirstBadVersion.kt)
 * [455. Assign Cookies](test/leetcode/AssignCookies.kt)
