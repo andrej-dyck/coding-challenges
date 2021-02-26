@@ -6,7 +6,6 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.params.*
 import org.junit.jupiter.params.converter.*
 import org.junit.jupiter.params.provider.*
-import java.util.*
 
 /**
  * https://leetcode.com/problems/word-search/
@@ -28,33 +27,25 @@ import java.util.*
  * - board and word consists only of lowercase and uppercase English letters.
  */
 typealias Board = Array<String>
-typealias Path = Sequence<XY>
+typealias Coordinates = Sequence<XY>
+typealias Path = Coordinates
 
-fun findWordOnBoard(board: Board, word: String) =
-    board.findPathBeginningAtAnyOf(word, board.xys())
+fun findWordsOnBoard(board: Board, words: List<String>) =
+    words.filter { boardContainsWord(board, it) }
 
-fun Board.findPathBeginningAtAnyOf(word: String, xys: Sequence<XY>, path: Path = emptySequence()) =
-    xys
-        .filter { it !in path }
-        .map { findPathBeginningAt(word, it, path) }
+fun boardContainsWord(board: Board, word: String) = board.findPath(word).any() // for leetcode
+
+fun Board.findPath(word: String, xys: Coordinates = xys(), path: Path = emptySequence()): Path =
+    if (word.isEmpty()) path
+    else xys
+        .filter { word.first() == maybeValue(it) && it !in path }
+        .map { findPath(word.drop(1), it.neighbors(), path + it) }
         .find { it.any() } ?: emptySequence()
 
-fun Board.findPathBeginningAt(word: String, xy: XY, path: Path): Path =
-    when {
-        word.isEmpty() -> path
-        word.first() == maybeValue(xy) -> findPathBeginningAtAnyOf(
-            word = word.drop(1),
-            xys = xy.neighbors(),
-            path = path + xy
-        )
-        else -> emptySequence()
-    }
-
-private fun Board.xys(): Sequence<XY> =
+private fun Board.xys() =
     asSequence().flatMapIndexed { y, r -> r.mapIndexed { x, _ -> XY(x, y) } }
 
-private fun Board.maybeValue(xy: XY) =
-    getOrNull(xy.y)?.getOrNull(xy.x)
+private fun Board.maybeValue(xy: XY) = getOrNull(xy.y)?.getOrNull(xy.x)
 
 data class XY(val x: Int, val y: Int) {
 
@@ -73,26 +64,19 @@ class WordsInsideARectangleTest {
 
     @ParameterizedTest
     @CsvSource(
-        "[KOTE, NULE, AFIN]; KOTLIN; true",
-        "[KOTE, NULE, AFIN]; FUN; true",
-        "[KOTE, NULE, AFIN]; FILE; true",
-        "[KOTE, NULE, AFIN]; LINE; true",
-        "[KOTE, NULE, AFIN]; NULL; false",
-        "[ABCE, SFCS, ADEE]; ABCCED; true",
-        "[ABCE, SFCS, ADEE]; SEE; true",
-        "[ABCE, SFCS, ADEE]; ABCB; false",
-        "[ABCE, SFCS, ADEE]; ; false",
+        "[KOTE, NULE, AFIN]; [Kotlin, fun, file, line, null]; [KOTLIN, FUN, FILE, LINE]",
+        "[ABCE, SFCS, ADEE]; [ABCCED, SEE, ABCB]; [ABCCED, SEE]", // ABCB can only be found by visiting a cell twice
         delimiter = ';'
     )
     fun `finds words on board by finding a path of adjacent cells starting anywhere`(
         @ConvertWith(StringArrayArg::class) board: Array<String>,
-        word: String?,
-        solutionExists: Boolean
+        @ConvertWith(StringArrayArg::class) words: Array<String>,
+        @ConvertWith(StringArrayArg::class) expectedWords: Array<String>
     ) {
         assertThat(
-            findWordOnBoard(board, word ?: "")
-        ).`as`("boggle solution").matches {
-            if (solutionExists) it.any() else it.none()
-        }
+            findWordsOnBoard(board, words.map { it.toUpperCase() })
+        ).containsExactlyElementsOf(
+            expectedWords.toList()
+        )
     }
 }
