@@ -31,7 +31,7 @@ fun canBeMadeNonDecreasing(nums: Array<Int>): Boolean =
 
 fun <T> Sequence<T>.countUpToMax(max: Int, predicate: (T) -> Boolean) =
     filter(predicate)
-        .zip((0..max).asSequence())
+        .zip((1..max).asSequence())
         .count()
 
 /**
