@@ -53,16 +53,16 @@ class KSimilarStringsTest {
 
     @ParameterizedTest
     @CsvSource(
-        ", , 0",
+        "'', '', 0",
         "ab, ab, 0",
         "ab, ba, 1",
         "abc, bca, 2",
         "abac, baca, 2",
         "aabc, abca, 2"
     )
-    fun `k-similarity of string a and b`(a: String?, b: String?, expectedKSimilarity: Int) {
+    fun `k-similarity of string a and b`(a: String, b: String, expectedKSimilarity: Int) {
         assertThat(
-            kSimilarity(a ?: "", b ?: "")
+            kSimilarity(a, b)
         ).isEqualTo(
             expectedKSimilarity
         )
