@@ -22,9 +22,10 @@ import org.junit.jupiter.params.provider.*
  * - All the characters of jewels are unique.
  */
 fun numJewelsInStones(jewels: String, stones: String) =
-    with(jewels.toHashSet()) {
-        stones.count { it in this }
-    }
+    numJewelsInStones(jewels.toHashSet(), stones)
+
+fun numJewelsInStones(jewels: Set<Char>, stones: CharSequence) =
+    stones.count { it in jewels }
 
 /**
  * Unit tests
