@@ -12,6 +12,7 @@ _Note:_ With these exercises my goal was to solve these mostly in a functional a
 
 * [12. Integer to Roman](test/leetcode/RomanNumerals.kt)
 * [79. Word Search](test/leetcode/WordSearch.kt)
+* [121. Best Time to Buy and Sell Stock](test/leetcode/BestTimeToBuyAndSellStock.kt)
 * [268. Missing Number](test/leetcode/MissingNumber.kt)
 * [278. First Bad Version](test/leetcode/FirstBadVersion.kt)
 * [455. Assign Cookies](test/leetcode/AssignCookies.kt)
