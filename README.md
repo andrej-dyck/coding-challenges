@@ -11,6 +11,7 @@ https://leetcode.com/problemset/all/
 _Note:_ With these exercises my goal was to solve these mostly in a functional approach. Further I tried to solve them within a given time limit (easy: < 20min, medium: < 60min).
 
 * [12. Integer to Roman](test/leetcode/RomanNumerals.kt)
+* [14. Longest Common Prefix](test/leetcode/LongestCommonPrefix.kt)
 * [79. Word Search](test/leetcode/WordSearch.kt)
 * [121. Best Time to Buy and Sell Stock](test/leetcode/BestTimeToBuyAndSellStock.kt)
 * [268. Missing Number](test/leetcode/MissingNumber.kt)
