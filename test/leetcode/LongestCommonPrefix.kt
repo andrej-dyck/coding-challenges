@@ -1,0 +1,65 @@
+package leetcode
+
+import lib.*
+import org.assertj.core.api.*
+import org.junit.jupiter.params.*
+import org.junit.jupiter.params.converter.*
+import org.junit.jupiter.params.provider.*
+
+/**
+ * https://leetcode.com/problems/longest-common-prefix/
+ *
+ * 14. Longest Common Prefix
+ * [Easy]
+ *
+ * Write a function to find the longest common prefix string amongst an array of strings.
+ *
+ * If there is no common prefix, return an empty string "".
+ *
+ * Constraints:
+ * - 0 <= strs.length <= 200
+ * - 0 <= strs[i].length <= 200
+ * - strs[i] consists of only lower-case English letters.
+ */
+fun longestCommonPrefix(words: Array<String>) =
+    words
+        .map { it.asSequence() }
+        .zipAll()
+        .takeWhile { it.distinct().size == 1 }
+        .map { it.first() }
+        .joinToString("")
+
+fun <T> Iterable<Sequence<T>>.zipAll(): Sequence<List<T>> {
+    val iterators = map { it.iterator() }
+
+    return iterator {
+        while (iterators.all { it.hasNext() })
+            yield(iterators.map { it.next() })
+    }.asSequence()
+}
+
+/**
+ * Unit tests
+ */
+class LongestCommonPrefixTest {
+
+    @ParameterizedTest
+    @CsvSource(
+        "[]; ''",
+        "[flower]; flower",
+        "[flower, flow]; flow",
+        "[flower, flow, flight]; fl",
+        "[dog, racecar, car]; ''",
+        delimiter = ';'
+    )
+    fun `longest common prefix of all words`(
+        @ConvertWith(StringArrayArg::class) words: Array<String>,
+        expectedPrefix: String,
+    ) {
+        Assertions.assertThat(
+            longestCommonPrefix(words)
+        ).isEqualTo(
+            expectedPrefix
+        )
+    }
+}
