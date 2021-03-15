@@ -2,6 +2,7 @@ package leetcode
 
 import lib.*
 import org.assertj.core.api.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.*
 import org.junit.jupiter.params.converter.*
 import org.junit.jupiter.params.provider.*
@@ -42,14 +43,14 @@ class RichestCustomerWealthTest {
         "[[2,8,7],[7,1,3],[1,9,5]]; 17",
         delimiter = ';'
     )
-    fun `wealth of the richest customer`(
+    fun `max wealth of the richest customer is the sum of their account values`(
         @ConvertWith(IntMatrixArg::class) accounts: Array<Array<Int>>,
-        expectedCount: Int?
+        expectedWealth: Int
     ) {
-        Assertions.assertThat(
+        assertThat(
             maximumWealth(accounts)
         ).isEqualTo(
-            expectedCount
+            expectedWealth
         )
     }
 }
