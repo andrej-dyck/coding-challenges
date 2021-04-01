@@ -27,9 +27,56 @@ import org.junit.jupiter.params.provider.*
  */
 fun findContentChildren(childrenGreeds: Array<Int>, cookieSizes: Array<Int>) =
     childrenGreeds.asSequence().sorted()
-        .zip(cookieSizes.asSequence().sorted())
-        .takeWhile { (g, s) -> g <= s }
+        .zipIf(cookieSizes.asSequence().sorted()) { g, s -> s >= g }
         .count()
+
+/**
+ * zipIf - integrates sequence with only those items from the other sequence which
+ * satisfy the predicate
+ */
+fun <T, R> Sequence<T>.zipIf(
+    other: Sequence<R>,
+    predicate: (T, R) -> Boolean
+): Sequence<Pair<T, R>> {
+
+    tailrec fun recZipIf(
+        s1: Sequence<T>,
+        s2: Sequence<R>,
+        pairs: Sequence<Pair<T, R>> = emptySequence()
+    ): Sequence<Pair<T, R>> {
+        val (f1, rs1) = s1.headTails()
+        val (f2, rs2) = s2.dropWhile { f1 != null && !predicate(f1, it) }.headTails()
+
+        return when {
+            f1 == null || f2 == null -> pairs
+            else -> recZipIf(rs1, rs2, pairs + (f1 to f2))
+        }
+    }
+
+    return recZipIf(this, other)
+}
+
+fun <T> Sequence<T>.headTails() = firstOrNull() to drop(1)
+
+//fun <T, R> Sequence<T>.zipIf(other: Sequence<R>, predicate: (T, R) -> Boolean): Sequence<Pair<T, R>> {
+//    val thisIterator = iterator()
+//    val otherIterator = other.iterator()
+//
+//    return sequence {
+//        while (thisIterator.hasNext()) {
+//            val thisNext = thisIterator.next()
+//
+//            while (otherIterator.hasNext()) {
+//                val otherNext = otherIterator.next()
+//
+//                if (predicate(thisNext, otherNext)) {
+//                    yield(thisNext to otherNext)
+//                    break
+//                }
+//            }
+//        }
+//    }
+//}
 
 /**
  * Unit tests
@@ -42,6 +89,8 @@ class AssignCookiesTest {
         "[1,2]; [1,2,3]; 2",
         "[4,1,3,2,1,1,2,2]; [1,1,1,1]; 3",
         "[4,1,3,2,1,1,2,2]; [2,2,2,2]; 4",
+        "[1,2,3,3]; [1,1,1,1,3,3,3]; 4",
+        "[2,2,2,5]; [1,1,1,4]; 1",
         delimiter = ';'
     )
     fun `maximize the number of your content children`(
