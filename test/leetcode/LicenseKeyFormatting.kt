@@ -29,11 +29,14 @@ import org.junit.jupiter.params.provider.*
  */
 fun formattedLicenseKey(licenceKey: String, groupSize: Int): String =
     licenceKey
-        .replace("-", "")
-        .reversed()
-        .chunked(groupSize)
-        .joinToString("-") { it.toUpperCase() }
-        .reversed()
+        .remove("-")
+        .reversed().blocks("-", groupSize).reversed()
+        .toUpperCase()
+
+fun String.remove(s: String) = replace(s, "")
+
+fun String.blocks(separator: String, groupSize: Int) =
+    chunked(groupSize).joinToString(separator)
 
 /**
  * Unit tests
