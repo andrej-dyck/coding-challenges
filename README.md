@@ -8,7 +8,7 @@ Build with `./gradlew build`. Test with `./gradlew test`.
 
 https://leetcode.com/problemset/all/
 
-_Note:_ With these exercises my goal was to solve these mostly in a functional approach. Further I tried to solve them within a given time limit (easy: < 20min, medium: < 60min).
+_Note:_ With these exercises my goal was to solve these mostly in a functional approach. Further, I tried to solve them within a given time limit (easy: < 20min, medium: < 60min).
 
 * [8. String to Integer](test/leetcode/StringToInteger.kt)
 * [12. Integer to Roman](test/leetcode/RomanNumerals.kt)
@@ -31,6 +31,7 @@ _Note:_ With these exercises my goal was to solve these mostly in a functional a
 * [1456. Maximum Number of Vowels in a Substring of Given Length](test/leetcode/MaximumNumberOfVowels.kt)
 * [1614. Maximum Nesting Depth of the Parentheses](test/leetcode/NestingDepthOfParentheses.kt)
 * [1672. Richest Customer Wealth](test/leetcode/RichestCustomerWealth.kt)
+* [1700. Number of Students Unable to Eat Lunch](test/leetcode/NumberOfStudentsUnableToEatLunch.kt)
 
 ### Exercism.io Exercises
 

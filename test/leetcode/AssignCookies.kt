@@ -56,8 +56,6 @@ fun <T, R> Sequence<T>.zipIf(
     return recZipIf(this, other)
 }
 
-fun <T> Sequence<T>.headTails() = firstOrNull() to drop(1)
-
 //fun <T, R> Sequence<T>.zipIf(other: Sequence<R>, predicate: (T, R) -> Boolean): Sequence<Pair<T, R>> {
 //    val thisIterator = iterator()
 //    val otherIterator = other.iterator()
