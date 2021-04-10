@@ -32,6 +32,7 @@ _Note:_ With these exercises my goal was to solve these mostly in a functional a
 * [1614. Maximum Nesting Depth of the Parentheses](test/leetcode/NestingDepthOfParentheses.kt)
 * [1672. Richest Customer Wealth](test/leetcode/RichestCustomerWealth.kt)
 * [1700. Number of Students Unable to Eat Lunch](test/leetcode/NumberOfStudentsUnableToEatLunch.kt)
+* [1812. Determine Color of a Chessboard Square](test/leetcode/DetermineColorOfAChessboardSquare.kt)
 
 ### Exercism.io Exercises
 
