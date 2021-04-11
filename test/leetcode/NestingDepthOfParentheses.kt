@@ -33,11 +33,10 @@ import org.junit.jupiter.params.provider.*
  * - s consists of digits 0-9 and characters '+', '-', '*', '/', '(', and ')'.
  * - It is guaranteed that parentheses expression s is a VPS.
  */
-fun maxNestingDepth(vps: String) =
-    vps.filter { it in "()" }
-        .map { if (it == '(') 1 else -1 }
-        .runningReduce { a, b -> a + b }
-        .maxOr { 0 }
+fun maxNestingDepth(vps: String) = vps
+    .map { when (it) {'(' -> 1; ')' -> -1; else -> 0 } }
+    .runningReduce(Int::plus)
+    .maxOr { 0 }
 
 /**
  * Unit tests
