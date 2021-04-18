@@ -12,14 +12,15 @@ fun <T> Collection<T>.formattedString() = "[${joinToString(",")}]"
 
 fun <T> Array<T>.formattedString() = toList().formattedString()
 
-fun <T : Comparable<T>> Collection<T>.maxOr(otherwise: () -> T) =
+inline fun <T : Comparable<T>> Collection<T>.maxOr(otherwise: () -> T) =
     maxOrNull() ?: otherwise()
 
-fun <T : Comparable<T>> Collection<T>.minOr(otherwise: () -> T) =
+inline fun <T : Comparable<T>> Collection<T>.minOr(otherwise: () -> T) =
     minOrNull() ?: otherwise()
 
 fun <T> Sequence<T>.headTails() = firstOrNull() to drop(1)
 inline fun <reified T> Array<T>.headTails() = firstOrNull() to (drop(1).toTypedArray())
+fun String.headTails() = firstOrNull() to drop(1)
 
 // Number-Extensions
 fun Int.isEven() = this % 2 == 0

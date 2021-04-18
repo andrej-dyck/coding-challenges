@@ -13,6 +13,7 @@ _Note:_ With these exercises my goal was to solve these mostly in a functional a
 * [8. String to Integer](test/leetcode/StringToInteger.kt)
 * [12. Integer to Roman](test/leetcode/RomanNumerals.kt)
 * [14. Longest Common Prefix](test/leetcode/LongestCommonPrefix.kt)
+* [17. Letter Combinations of a Phone Number](test/leetcode/LetterCombinationsOfAPhoneNumber.kt)
 * [79. Word Search](test/leetcode/WordSearch.kt)
 * [121. Best Time to Buy and Sell Stock](test/leetcode/BestTimeToBuyAndSellStock.kt)
 * [268. Missing Number](test/leetcode/MissingNumber.kt)

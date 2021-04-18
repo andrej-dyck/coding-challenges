@@ -20,7 +20,7 @@ class StringArrayArg : TypedArgumentConverter<String, Array<String>>(
     String::class.java, Array<String>::class.java
 ) {
     override fun convert(source: String?) =
-        source?.toArray { this } ?: emptyArray()
+        source?.toArray { this.removeSurrounding("'") } ?: emptyArray()
 }
 
 inline fun <reified T> String.toArray(
