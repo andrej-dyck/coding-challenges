@@ -21,29 +21,29 @@ import org.junit.jupiter.params.provider.CsvSource
  * - 0 <= digits.length <= 4
  * - digits[i] is a digit in the range ['2', '9'].
  */
-fun letterCombinations(digits: String): Sequence<String> {
-    fun dfs(digits: String, word: String): Sequence<String> = when {
-        digits.none() && word.none() -> emptySequence()
-        digits.none() -> sequenceOf(word)
-        else -> digitLetters(digits.first()).flatMap {
-            dfs(digits.drop(1), word + it)
-        }
-    }
+fun letterCombinations(digits: String) = when {
+    digits.none() -> emptySequence()
+    else -> digits.asSequence().map(::digitLetters).combinations()
+}
 
-    return dfs(digits, "")
+fun Sequence<String>.combinations(): Sequence<String> = when {
+    none() -> sequenceOf("")
+    else -> drop(1).combinations().flatMap { l ->
+        first().map { "$it$l" }
+    }
 }
 
 fun digitLetters(digit: Char) = when (digit) {
-    '2' -> sequenceOf('a', 'b', 'c')
-    '3' -> sequenceOf('d', 'e', 'f')
-    '4' -> sequenceOf('g', 'h', 'i')
-    '5' -> sequenceOf('j', 'k', 'l')
-    '6' -> sequenceOf('m', 'n', 'o')
-    '7' -> sequenceOf('p', 'q', 'r', 's')
-    '8' -> sequenceOf('t', 'u', 'v')
-    '9' -> sequenceOf('w', 'x', 'y', 'z')
-    '0' -> sequenceOf(' ')
-    else -> emptySequence()
+    '2' -> "abc"
+    '3' -> "def"
+    '4' -> "ghi"
+    '5' -> "jkl"
+    '6' -> "mno"
+    '7' -> "pqrs"
+    '8' -> "tuv"
+    '9' -> "wxyz"
+    '0' -> " "
+    else -> ""
 }
 
 /**
@@ -76,6 +76,7 @@ class LetterCombinationsOfAPhoneNumberTest {
             expectedLetterCombinations.toList()
         )
     }
+
     @ParameterizedTest
     @CsvSource(
         "222; abc",
