@@ -34,7 +34,7 @@ class BrutForceSumOfMultiples(numbers: Set<Int>, maxMultiple: Int) : SumOfMultip
      * that are divisible by any of the given numbers.
      */
     override val sum by lazy {
-        numbers.min()?.let { min ->
+        numbers.minOrNull()?.let { min ->
             (min..maxMultiple).filter { numbers.anyIsDivisorOf(it) }.sum()
         } ?: 0
     }

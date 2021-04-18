@@ -151,9 +151,4 @@ class SpaceAgeTest {
 
         assertEquals(1.58, age.onNeptune())
     }
-
-    @Test
-    fun check() {
-        val inYears = MercuryAge(222222222L).inYears
-    }
 }

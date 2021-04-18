@@ -20,7 +20,7 @@ class Series(private val digits: List<Digit>) {
         require(numberOfDigits in 0..digits.size)
         return when (numberOfDigits) {
             0 -> 1L
-            else -> digits.toProductsOfSeriesOf(numberOfDigits).max() ?: 1L
+            else -> digits.toProductsOfSeriesOf(numberOfDigits).maxOrNull() ?: 1L
         }
     }
 
