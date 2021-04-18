@@ -33,6 +33,7 @@ _Note:_ With these exercises my goal was to solve these mostly in a functional a
 * [1672. Richest Customer Wealth](test/leetcode/RichestCustomerWealth.kt)
 * [1700. Number of Students Unable to Eat Lunch](test/leetcode/NumberOfStudentsUnableToEatLunch.kt)
 * [1812. Determine Color of a Chessboard Square](test/leetcode/DetermineColorOfAChessboardSquare.kt)
+* [1816. Truncate Sentence](test/leetcode/TruncateSentence.kt)
 * [1822. Sign of the Product of an Array](test/leetcode/SignOfTheProductOfAnArray.kt)
 
 ### Exercism.io Exercises
