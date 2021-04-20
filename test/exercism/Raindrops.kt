@@ -19,7 +19,7 @@ class Raindrops(number: Int) {
         make(PLING, provided = number isDivisibleBy 3)
             .thenMake(PLANG, provided = number isDivisibleBy 5)
             .thenMake(PLONG, provided = number isDivisibleBy 7)
-            .otherwise { number.toString() }
+            .ifEmpty { number.toString() }
     }
 
     private fun make(sound: String, provided: Boolean) =
@@ -27,9 +27,6 @@ class Raindrops(number: Int) {
 
     private fun String.thenMake(sound: String, provided: Boolean) =
         if (provided) this + sound else this
-
-    private fun String.otherwise(elseString: () -> String) =
-        if (isEmpty()) elseString() else this
 
     companion object {
         fun convert(number: Int) = Raindrops(number).asString
