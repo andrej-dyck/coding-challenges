@@ -216,7 +216,10 @@ class RomanNumeralsPropertiesTest {
         val simplifiedRomanNumeral = simplified(romanNumeral)
 
         assertThat(simplifiedRomanNumeral.pairs())
-            .`as`("$n as $romanNumeral (as simplified $simplifiedRomanNumeral) must comprise of monotonically decreasing symbol values")
+            .`as`(
+                "$n as $romanNumeral (as simplified $simplifiedRomanNumeral)" +
+                    " must comprise of monotonically decreasing symbol values"
+            )
             .allMatch { (d1, d2) -> romanSymbols.getValue(d1) >= romanSymbols.getValue(d2) }
     }
 
@@ -242,6 +245,7 @@ class RomanNumeralsPropertiesTest {
             .replace("CM", "DCCCC")
 
     @Provide("1 to 3999")
+    @Suppress("unused")
     private fun numbers(): Arbitrary<Int> = Arbitraries.integers().between(1, 3999)
 }
 

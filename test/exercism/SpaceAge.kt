@@ -105,49 +105,49 @@ class SpaceAgeTest {
 
     @Test
     fun ageOnMercury() {
-        val age = SpaceAge(2134835688)
+        val age = SpaceAge(2_134_835_688)
 
         assertEquals(280.88, age.onMercury())
     }
 
     @Test
     fun ageOnVenus() {
-        val age = SpaceAge(189839836)
+        val age = SpaceAge(189_839_836)
 
         assertEquals(9.78, age.onVenus())
     }
 
     @Test
     fun ageOnMars() {
-        val age = SpaceAge(2329871239L)
+        val age = SpaceAge(2_329_871_239L)
 
         assertEquals(39.25, age.onMars())
     }
 
     @Test
     fun ageOnJupiter() {
-        val age = SpaceAge(901876382)
+        val age = SpaceAge(901_876_382)
 
         assertEquals(2.41, age.onJupiter())
     }
 
     @Test
     fun ageOnSaturn() {
-        val age = SpaceAge(3000000000L)
+        val age = SpaceAge(3_000_000_000L)
 
         assertEquals(3.23, age.onSaturn())
     }
 
     @Test
     fun ageOnUranus() {
-        val age = SpaceAge(3210123456L)
+        val age = SpaceAge(3_210_123_456L)
 
         assertEquals(1.21, age.onUranus())
     }
 
     @Test
     fun ageOnNeptune() {
-        val age = SpaceAge(8210123456L)
+        val age = SpaceAge(8_210_123_456L)
 
         assertEquals(1.58, age.onNeptune())
     }

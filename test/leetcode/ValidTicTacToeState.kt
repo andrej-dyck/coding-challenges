@@ -36,21 +36,24 @@ fun validTicTacToe(board: Array<String>) = TicTacToeBoard(board).isInValidState
 class TicTacToeBoard(private val board: Array<String>) {
 
     val isInValidState by lazy {
-        `Xs are equal to or +1 more than Os`
-            && !(`X is winner` && `O is winner`)
+        (equalCountOfXsAndOs || atMostOneMoreXThenOs) && atMostOneWinner
     }
 
-    private val `Xs are equal to or +1 more than Os` by lazy {
-        board.joinToString().let { Cs ->
-            Cs.count { it == 'X' } to Cs.count { it == 'O' }
-        }.let { (Xs, Os) ->
-            Xs == Os || Xs == Os + 1
+    private val equalCountOfXsAndOs by lazy {
+        countOfXsAndOs.let { (Xs, Os) -> Xs == Os }
+    }
+
+    private val atMostOneMoreXThenOs by lazy {
+        countOfXsAndOs.let { (Xs, Os) -> Xs == Os + 1 }
+    }
+
+    private val countOfXsAndOs by lazy {
+        board.joinToString().let { c ->
+            c.count { it == 'X' } to c.count { it == 'O' }
         }
     }
 
-    private val `X is winner` by lazy { isWinner('X') }
-
-    private val `O is winner` by lazy { isWinner('O') }
+    private val atMostOneWinner by lazy { !(isWinner('X') && isWinner('O')) }
 
     private fun isWinner(c: Char): Boolean =
         anyRowContainsOnly(c)

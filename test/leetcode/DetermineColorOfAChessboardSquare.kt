@@ -1,6 +1,7 @@
 package leetcode
 
 import leetcode.SquareColor.*
+import lib.isEven
 import lib.require
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
@@ -41,14 +42,12 @@ fun squareIsBlack(coordinate: String) = squareColor(coordinate) == BLACK
 enum class SquareColor { WHITE, BLACK }
 
 fun squareColor(coordinate: String) =
-    coordinatePair(coordinate).let { (c, r) ->
-        if ((c + r).isEven()) BLACK else WHITE
-    }
+    if (coordinatePair(coordinate).isEven()) BLACK else WHITE
 
 private fun coordinatePair(coordinate: String) =
-    coordinate.require { it.length == 2 }.let {
-        coordinateValue(it.first()) to coordinateValue(it.last())
-    }
+    coordinate
+        .require { it.length == 2 }
+        .let { coordinateValue(it.first()) to coordinateValue(it.last()) }
 
 private fun coordinateValue(c: Char) = when (c) {
     in 'a'..'h' -> c - 'a' + 1
@@ -56,7 +55,7 @@ private fun coordinateValue(c: Char) = when (c) {
     else -> throw IllegalArgumentException()
 }
 
-fun Int.isEven() = this % 2 == 0
+private fun Pair<Int, Int>.isEven() = (first + second).isEven()
 
 /**
  * Unit Tests

@@ -33,8 +33,9 @@ fun <T> Iterable<Sequence<T>>.zipAll(): Sequence<List<T>> {
     val iterators = map { it.iterator() }
 
     return sequence {
-        while (iterators.all { it.hasNext() })
+        while (iterators.all { it.hasNext() }) {
             yield(iterators.map { it.next() })
+        }
     }
 }
 

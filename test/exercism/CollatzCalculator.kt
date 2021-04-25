@@ -86,7 +86,7 @@ class CollatzCalculatorTest {
 
     @Test
     fun testAVeryLargeInput() {
-        assertEquals(152, CollatzCalculator.computeStepCount(1000000))
+        assertEquals(152, CollatzCalculator.computeStepCount(1_000_000))
     }
 
     @Test

@@ -2,7 +2,6 @@ package exercism
 
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
-import java.lang.IllegalArgumentException
 
 /**
  * https://exercism.io/tracks/kotlin/exercises/rna-transcription

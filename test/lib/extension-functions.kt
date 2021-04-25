@@ -1,13 +1,14 @@
 package lib
 
-import java.math.*
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 fun <T> T.require(predicate: (T) -> Boolean): T {
     require(predicate(this))
     return this
 }
 
-// Collection-Extensions
+// Collection/Array Extensions
 fun <T> Collection<T>.formattedString() = "[${joinToString(",")}]"
 
 fun <T> Array<T>.formattedString() = toList().formattedString()
@@ -18,11 +19,14 @@ inline fun <T : Comparable<T>> Collection<T>.maxOr(otherwise: () -> T) =
 inline fun <T : Comparable<T>> Collection<T>.minOr(otherwise: () -> T) =
     minOrNull() ?: otherwise()
 
-fun <T> Sequence<T>.headTails() = firstOrNull() to drop(1)
 inline fun <reified T> Array<T>.headTails() = firstOrNull() to (drop(1).toTypedArray())
-fun String.headTails() = firstOrNull() to drop(1)
 
-// Number-Extensions
+// Sequence Extensions
+fun <T> Sequence<T>.headTails() = firstOrNull() to drop(1)
+fun <T> Sequence<T>.cycle() = generateSequence(this) { this }.flatten()
+
+
+// Number Extensions
 fun Int.isEven() = this % 2 == 0
 fun Int.isOdd() = this % 2 == 1
 
@@ -35,5 +39,5 @@ infix fun Int.isMultipleOf(number: Int) = this isDivisibleBy number
 fun Double.round(decimals: Int) =
     BigDecimal(this).setScale(decimals, RoundingMode.HALF_UP).toDouble()
 
-// String-Extensions
+// String Extensions
 fun String.isANumber() = this.toIntOrNull() != null

@@ -35,7 +35,7 @@ class NaturalNumber(private val value: Int) {
 
     private val aliquotSum by lazy { aliquotSum() }
 
-    fun aliquotSum(): Int = properDivisors().sum()
+    private fun aliquotSum(): Int = properDivisors().sum()
 
     private fun properDivisors() =
         (1 until value).filter { value isDivisibleBy it }
@@ -58,7 +58,7 @@ class NaturalNumberTest {
 
     @Test
     fun largePerfectNumberIsClassifiedCorrectly() {
-        assertEquals(Classification.PERFECT, classify(33550336))
+        assertEquals(Classification.PERFECT, classify(33_550_336))
     }
 
     @Test
@@ -73,7 +73,7 @@ class NaturalNumberTest {
 
     @Test
     fun largeAbundantNumberIsClassifiedCorrectly() {
-        assertEquals(Classification.ABUNDANT, classify(33550335))
+        assertEquals(Classification.ABUNDANT, classify(33_550_335))
     }
 
     @Test
@@ -93,7 +93,7 @@ class NaturalNumberTest {
 
     @Test
     fun largeDeficientNumberIsClassifiedCorrectly() {
-        assertEquals(Classification.DEFICIENT, classify(33550337))
+        assertEquals(Classification.DEFICIENT, classify(33_550_337))
     }
 
     @Test

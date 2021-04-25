@@ -45,7 +45,9 @@ class PangramTest {
 
     @Test
     fun missingCharacterX() {
-        assertFalse(Pangram.isPangram("a quick movement of the enemy will jeopardize five gunboats"))
+        assertFalse(
+            Pangram.isPangram("a quick movement of the enemy will jeopardize five gunboats")
+        )
     }
 
     @Test

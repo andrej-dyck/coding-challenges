@@ -1,13 +1,16 @@
 package misc
 
-import lib.*
-import net.jqwik.api.*
+import lib.isANumber
+import lib.isDivisibleBy
+import net.jqwik.api.ForAll
+import net.jqwik.api.Property
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.BDDAssertions.then
 import org.junit.jupiter.api.Assumptions.assumingThat
-import org.junit.jupiter.params.*
-import org.junit.jupiter.params.provider.*
-import kotlin.math.*
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
+import kotlin.math.abs
+import kotlin.math.absoluteValue
 
 /**
  * https://en.wikipedia.org/wiki/Fizz_buzz
@@ -19,30 +22,7 @@ interface FizzBuzz {
     operator fun invoke(number: Int): String
 }
 
-val fizzBuzz = FizzBuzzCycles()
-
-/**
- * via Sequence Cycles
- */
-class FizzBuzzCycles : FizzBuzz {
-
-    override fun invoke(number: Int) =
-        fizzBuzzes.take(abs(number)).lastOrNull() ?: number.toString()
-
-    private val fizzBuzzes by lazy {
-        fizzes.zip(buzzes) { a, b -> a?.plus(b ?: "") ?: b }
-    }
-
-    private val fizzes by lazy {
-        sequenceOf(null, null, "Fizz").cycle()
-    }
-
-    private val buzzes by lazy {
-        sequenceOf(null, null, null, null, "Buzz").cycle()
-    }
-}
-
-fun <T> Sequence<T>.cycle() = generateSequence(this) { this }.flatten()
+val fizzBuzz = FizzBuzzLookup()
 
 /**
  * via Lookup Pattern
@@ -56,8 +36,32 @@ class FizzBuzzLookup : FizzBuzz {
             lookupPattern[(number % 15).absoluteValue]
         ]
 
-    val lookupPattern by lazy { arrayListOf(3, 0, 0, 1, 0, 2, 1, 0, 0, 1, 2, 0, 1, 0, 0) }
+    private val lookupPattern by lazy {
+        arrayListOf(3, 0, 0, 1, 0, 2, 1, 0, 0, 1, 2, 0, 1, 0, 0)
+    }
 }
+
+
+/**
+ * via Sequence Cycles
+ */
+class FizzBuzzCycles : FizzBuzz {
+
+    override fun invoke(number: Int) =
+        fizzBuzzes().take(abs(number)).lastOrNull() ?: number.toString()
+
+    private fun fizzBuzzes() =
+        fizzes.zip(buzzes) { a, b -> a?.plus(b ?: "") ?: b }
+
+    private val fizzes by lazy {
+        sequenceOf(null, null, "Fizz").cycle()
+    }
+    private val buzzes by lazy {
+        sequenceOf(null, null, null, null, "Buzz").cycle()
+    }
+}
+
+fun <T> Sequence<T>.cycle() = generateSequence(this) { this }.flatten()
 
 /**
  * via Folding Functions
@@ -83,11 +87,10 @@ class FizzBuzzFoldingFunctions : FizzBuzz {
 class FizzBuzzExtensionFunctions : FizzBuzz {
 
     override fun invoke(number: Int): String {
-        fun fizz() = if (number isDivisibleBy 3) FIZZ else ""
-        fun String.buzz() = if (number isDivisibleBy 5) this + BUZZ else this
-        fun String.orElse(s: String) = if (this.isEmpty()) s else this
+        fun fizz() = FIZZ.takeIf { number isDivisibleBy 3 }
+        fun String?.buzz() = if (number isDivisibleBy 5) orEmpty() + BUZZ else this
 
-        return fizz().buzz().orElse(number.toString())
+        return fizz().buzz() ?: number.toString()
     }
 }
 
@@ -121,14 +124,14 @@ class FizzBuzzPropertiesTest {
 
     @Property
     fun `starts with Fizz for numbers divisible by 3`(@ForAll n: Int) {
-        assumingThat(n isDivisibleBy 3) {
+        assumingThat(n != 0 && n isDivisibleBy 3) {
             assertThat(fizzBuzz(n)).startsWith(FIZZ)
         }
     }
 
     @Property
     fun `ends with Buzz for numbers divisible by 5`(@ForAll n: Int) {
-        assumingThat(n isDivisibleBy 5) {
+        assumingThat(n != 0 && n isDivisibleBy 5) {
             assertThat(fizzBuzz(n)).endsWith(BUZZ)
         }
     }

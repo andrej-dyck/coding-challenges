@@ -10,7 +10,8 @@ import java.math.*
  * Grains
  * [Medium]
  *
- * Calculate the number of grains of wheat on a chessboard given that the number on each square doubles.
+ * Calculate the number of grains of wheat on a chessboard given that
+ * the number on each square doubles.
  */
 object Board {
 
@@ -78,12 +79,12 @@ class BoardTest {
 
     @Test
     fun testSquare16ContainsCorrectNumberOfGrains() {
-        assertEquals(BigInteger.valueOf(32768), Board.getGrainCountForSquare(16))
+        assertEquals(BigInteger.valueOf(32_768), Board.getGrainCountForSquare(16))
     }
 
     @Test
     fun testSquare32ContainsCorrectNumberOfGrains() {
-        assertEquals(BigInteger.valueOf(2147483648), Board.getGrainCountForSquare(32))
+        assertEquals(BigInteger.valueOf(2_147_483_648), Board.getGrainCountForSquare(32))
     }
 
     @Test

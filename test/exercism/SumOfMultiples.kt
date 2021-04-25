@@ -167,7 +167,7 @@ class SumOfMultiplesTest {
 
     @Test
     fun `multiples of 3 or 5 up to 1000`() {
-        assertEquals(233168, SumOfMultiples.sum(setOf(3, 5), 1000))
+        assertEquals(233_168, SumOfMultiples.sum(setOf(3, 5), 1000))
     }
 
     @Test
@@ -192,7 +192,7 @@ class SumOfMultiplesTest {
 
     @Test
     fun `multiples of 43 or 47 up to 10000`() {
-        assertEquals(2203160, SumOfMultiples.sum(setOf(43, 47), 10000))
+        assertEquals(2_203_160, SumOfMultiples.sum(setOf(43, 47), 10000))
     }
 
     @Test
@@ -204,5 +204,4 @@ class SumOfMultiplesTest {
     fun `multiples of an empty set up to 10000`() {
         assertEquals(0, SumOfMultiples.sum(emptySet(), 10000))
     }
-
 }

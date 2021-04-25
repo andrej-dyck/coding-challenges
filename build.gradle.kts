@@ -1,16 +1,17 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.4.30"
+    id("io.gitlab.arturbosch.detekt").version("1.16.0")
 }
 
 group = "ad.kata"
 version = "1.0"
 
 repositories {
-    mavenLocal()
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -41,6 +42,23 @@ sourceSets.getByName("test") {
         kotlin.srcDirs("test/")
     }
 }
+
+/* Detekt */
+detekt {
+    input = files("src/", "test/")
+    config = files("detekt.yml")
+    reports {
+        html {
+            enabled = true
+            destination = file("detekt/report.html")
+        }
+    }
+}
+
+tasks.withType<Detekt>().configureEach {
+    jvmTarget = "1.8"
+}
+
 
 /* Check with Junit 5 only */
 tasks.test {

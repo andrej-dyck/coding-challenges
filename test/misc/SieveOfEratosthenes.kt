@@ -1,10 +1,10 @@
 package misc
 
-import lib.*
-import org.assertj.core.api.*
-import org.junit.jupiter.params.*
-import org.junit.jupiter.params.converter.*
-import org.junit.jupiter.params.provider.*
+import lib.IntArrayArg
+import org.assertj.core.api.Assertions
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.converter.ConvertWith
+import org.junit.jupiter.params.provider.CsvSource
 
 /**
  * https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
@@ -20,7 +20,7 @@ fun primeNumbers(): Sequence<Int> {
     return sieve(naturalNumbers(2))
 }
 
-private fun naturalNumbers(start: Int = 1) =
+fun naturalNumbers(start: Int = 1) =
     generateSequence(start) { it + 1 }
 
 /**

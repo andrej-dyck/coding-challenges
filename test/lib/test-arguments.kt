@@ -29,13 +29,14 @@ inline fun <reified T> String.toArray(
     if (matches("\\[\\s*]".toRegex())) emptyArray()
     else this.require { it.startsWith('[') && it.endsWith(']') }
         .removeSurrounding("[", "]")
-        .let {
-            if (it.any { c -> c in "[]" }) // nested array
-                it.split("],").map { e -> if (e.endsWith(']')) e else "$e]" }
-            else
-                it.split(',')
-        }
+        .splitPossiblyNestedArray(',')
         .map { it.trim() }
         .filter { it.isNotEmpty() }
         .map(parseElement)
         .toTypedArray()
+
+fun String.splitPossiblyNestedArray(c: Char) =
+    if (any { it in "[]" }) // nested array
+        split("]$c").map { if (it.endsWith(']')) it else "$it]" }
+    else
+        split(c)

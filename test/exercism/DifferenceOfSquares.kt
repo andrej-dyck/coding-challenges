@@ -54,7 +54,7 @@ class DifferenceOfSquaresTest {
 
     @Test
     fun squareOfSum100() {
-        assertEquals(25502500, Squares(100).squareOfSum())
+        assertEquals(25_502_500, Squares(100).squareOfSum())
     }
 
     @Test
@@ -69,7 +69,7 @@ class DifferenceOfSquaresTest {
 
     @Test
     fun sumOfSquares100() {
-        assertEquals(338350, Squares(100).sumOfSquares())
+        assertEquals(338_350, Squares(100).sumOfSquares())
     }
 
     @Test
@@ -84,6 +84,6 @@ class DifferenceOfSquaresTest {
 
     @Test
     fun differenceOfSquares100() {
-        assertEquals(25164150, Squares(100).difference())
+        assertEquals(25_164_150, Squares(100).difference())
     }
 }
