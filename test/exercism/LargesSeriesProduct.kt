@@ -28,7 +28,7 @@ class Series(private val digits: List<Digit>) {
         windowed(numberOfDigits) { it.product() }
 
     private fun List<Digit>.product() =
-        fold(1L) { product, digit -> product * digit.asInt }
+        fold(1L) { product, digit -> product * digit.value }
 
     /*
      * 'get' is a horrible naming convention!
@@ -38,12 +38,13 @@ class Series(private val digits: List<Digit>) {
         largestProduct(numberOfDigits)
 }
 
-data class Digit(val asInt: Int) {
+@JvmInline
+value class Digit(val value: Int) {
 
-    constructor(asChar: Char) : this(asChar.toString().toInt())
+    constructor(asChar: Char) : this(asChar.digitToInt())
 
     init {
-        require(asInt in 0..9)
+        require(value in 0..9)
     }
 }
 

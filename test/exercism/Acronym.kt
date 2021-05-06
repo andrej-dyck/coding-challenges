@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 class Acronym(phrase: String) {
 
     val asString by lazy {
-        firstLettersOfWords.map { it.toUpperCase() }.joinToString(separator = "")
+        firstLettersOfWords.map { it.uppercaseChar() }.joinToString(separator = "")
     }
 
     private val firstLettersOfWords by lazy {

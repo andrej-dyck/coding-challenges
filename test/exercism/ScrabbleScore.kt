@@ -20,12 +20,12 @@ object ScrabbleScore {
 class ScrabbleWord(word: String) {
 
     val score by lazy {
-        word.sumBy { it.scrabblePoints }
+        word.sumOf { it.scrabblePoints }
     }
 }
 
 private val Char.scrabblePoints
-    get() = when (toUpperCase()) {
+    get() = when (uppercaseChar()) {
         'A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T' -> 1
         'D', 'G' -> 2
         'B', 'C', 'M', 'P' -> 3

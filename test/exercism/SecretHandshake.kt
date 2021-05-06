@@ -22,7 +22,7 @@ enum class Signal {
 }
 
 // here's how to OO
-interface SecretHandshake : Iterable<Signal>
+interface SecretHandshake : Sequence<Signal>
 
 class BinarySecretHandshake(number: Int) : SecretHandshake {
 

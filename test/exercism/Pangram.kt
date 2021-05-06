@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 object Pangram {
 
     fun isPangram(sentence: String) =
-        sentence.toLowerCase().contains(alphabet)
+        sentence.uppercase().contains(alphabet)
 
     private val alphabet = 'a'..'z'
 }

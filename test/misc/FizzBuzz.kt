@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Assumptions.assumingThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import kotlin.math.abs
-import kotlin.math.absoluteValue
 
 /**
  * https://en.wikipedia.org/wiki/Fizz_buzz
@@ -33,7 +32,7 @@ class FizzBuzzLookup : FizzBuzz {
         arrayOf(
             number.toString(), FIZZ, BUZZ, FIZZ_BUZZ
         )[
-            lookupPattern[(number % 15).absoluteValue]
+            lookupPattern[number.mod(15)]
         ]
 
     private val lookupPattern by lazy {

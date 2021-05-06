@@ -74,7 +74,7 @@ class WordsInsideARectangleTest {
         @ConvertWith(StringArrayArg::class) expectedWords: Array<String>
     ) {
         assertThat(
-            findWordsOnBoard(board, words.map { it.toUpperCase() })
+            findWordsOnBoard(board, words.map { it.uppercase() })
         ).containsExactlyElementsOf(
             expectedWords.toList()
         )

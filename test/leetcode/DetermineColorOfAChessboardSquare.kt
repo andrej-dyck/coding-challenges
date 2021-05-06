@@ -51,7 +51,7 @@ private fun coordinatePair(coordinate: String) =
 
 private fun coordinateValue(c: Char) = when (c) {
     in 'a'..'h' -> c - 'a' + 1
-    in '1'..'8' -> c.toString().toInt()
+    in '1'..'8' -> c.digitToInt()
     else -> throw IllegalArgumentException()
 }
 

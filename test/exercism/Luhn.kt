@@ -26,10 +26,10 @@ interface Luhn {
 
         override val isValid by lazy {
             numberAsString.isValidLuhnString() &&
-                Validation(numberAsString.toDitigs()).isValid
+                Validation(numberAsString.toDigits()).isValid
         }
 
-        private fun String.toDitigs() =
+        private fun String.toDigits() =
             filterNot { it.isWhitespace() }.map(Character::getNumericValue)
     }
 
@@ -53,15 +53,13 @@ interface Luhn {
             }
 
         companion object {
-
             private val DIGIT_SUM_OF_DOUBLED = arrayListOf(0, 2, 4, 6, 8, 1, 3, 5, 7, 9)
         }
     }
 }
 
 fun List<Int>.onlyDigits() = all { it.isDigit() }
-fun String.isValidLuhnString() =
-    all { it.isDigit() || it.isWhitespace() }
+fun String.isValidLuhnString() = all { it.isDigit() || it.isWhitespace() }
 
 /**
  * Unit tests

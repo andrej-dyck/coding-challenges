@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.30"
+    kotlin("jvm") version "1.5.0"
     id("io.gitlab.arturbosch.detekt").version("1.16.0")
 }
 
@@ -11,12 +11,16 @@ group = "ad.kata"
 version = "1.0"
 
 repositories {
-    jcenter()
+    mavenLocal()
+    mavenCentral()
+    // detekt needs kotlinx-html for its report
+    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven") }
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8")) // for Kotlin sources
+    implementation(kotlin("stdlib")) // for Kotlin sources
 
+    // junit 5
     testImplementation(platform("org.junit:junit-bom:5.7.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.assertj:assertj-core:3.18.1")
@@ -47,18 +51,11 @@ sourceSets.getByName("test") {
 detekt {
     input = files("src/", "test/")
     config = files("detekt.yml")
-    reports {
-        html {
-            enabled = true
-            destination = file("detekt/report.html")
-        }
-    }
 }
 
 tasks.withType<Detekt>().configureEach {
     jvmTarget = "1.8"
 }
-
 
 /* Check with Junit 5 only */
 tasks.test {
@@ -70,6 +67,6 @@ tasks.test {
 
 /* Gradle Wrapper */
 tasks.withType<Wrapper> {
-    gradleVersion = "6.8"
+    gradleVersion = "7.0"
     distributionType = Wrapper.DistributionType.BIN
 }
