@@ -36,6 +36,7 @@ _Note:_ With these exercises my goal was to solve these mostly in a functional a
 * [1812. Determine Color of a Chessboard Square](test/leetcode/DetermineColorOfAChessboardSquare.kt)
 * [1816. Truncate Sentence](test/leetcode/TruncateSentence.kt)
 * [1822. Sign of the Product of an Array](test/leetcode/SignOfTheProductOfAnArray.kt)
+* [1848. Minimum Distance to the Target Element](test/leetcode/MinimumDistanceToTargetElement.kt)
 
 ### Exercism.io Exercises
 
