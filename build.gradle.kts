@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.0"
-    id("io.gitlab.arturbosch.detekt").version("1.16.0")
+    kotlin("jvm") version "1.5.20"
+    id("io.gitlab.arturbosch.detekt").version("1.17.1")
 }
 
 group = "ad.kata"
@@ -21,9 +21,9 @@ dependencies {
     implementation(kotlin("stdlib")) // for Kotlin sources
 
     // junit 5
-    testImplementation(platform("org.junit:junit-bom:5.7.0"))
+    testImplementation(platform("org.junit:junit-bom:5.7.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("org.assertj:assertj-core:3.18.1")
+    testImplementation("org.assertj:assertj-core:3.20.2")
     testImplementation("net.jqwik:jqwik:1.5.0")
 }
 
