@@ -24,12 +24,12 @@ import org.junit.jupiter.params.provider.*
 fun longestCommonPrefix(words: Array<String>) =
     words
         .map { it.asSequence() }
-        .zipAll()
+        .transpose()
         .takeWhile { it.distinct().size == 1 }
         .map { it.first() }
         .joinToString("")
 
-fun <T> Iterable<Sequence<T>>.zipAll(): Sequence<List<T>> {
+fun <T> Iterable<Sequence<T>>.transpose(): Sequence<List<T>> {
     val iterators = map { it.iterator() }
 
     return sequence {
