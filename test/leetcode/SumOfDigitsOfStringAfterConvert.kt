@@ -33,7 +33,10 @@ import org.junit.jupiter.params.provider.ValueSource
  */
 fun getLucky(letters: String, k: Int = 1) = sumOfDigits(letterPositions(letters), k)
 
-fun sumOfDigits(numbers: List<Int>, k: Int) = when {
+val sumOfDigits = ::sumOfDigitsViaSequence // ::sumOfDigitsViaRecursion
+
+// version with recursion
+fun sumOfDigitsViaRecursion(numbers: List<Int>, k: Int) = when {
     k < 1 -> 0
     else -> sumOfDigits(numbers.digits().sum(), k - 1)
 }
@@ -43,9 +46,23 @@ tailrec fun sumOfDigits(number: Int, repetitions: Int): Int = when {
     else -> sumOfDigits(number.digits().sum(), repetitions - 1)
 }
 
-fun List<Int>.digits() = flatMap(Int::digits)
-fun Int.digits() = "$this".map(Char::digitToInt)
+// version with sequences
+fun sumOfDigitsViaSequence(numbers: List<Int>, k: Int) =
+    sumOfDigitsSequence { numbers.digits().sum() }
+        .take(k)
+        .lastOrNull() ?: 0
 
+fun sumOfDigitsSequence(number: () -> Int) =
+    generateSequence(number) { it.digits().sum() }
+
+// digits of integers
+fun List<Int>.digits() = flatMap(Int::digits)
+fun Int.digits() = when (this) {
+    in 0..9 -> listOf(this)
+    else -> "$this".map(Char::digitToInt)
+}
+
+// english lowercase letter positions
 fun letterPositions(letters: String) = letters.map(Char::letterPosition)
 fun Char.letterPosition() = require { it in 'a'..'z' }.code - 'a'.code + 1
 
