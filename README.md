@@ -38,6 +38,7 @@ _Note:_ With these exercises my goal was to solve these mostly in a functional a
 * [1822. Sign of the Product of an Array](test/leetcode/SignOfTheProductOfAnArray.kt)
 * [1848. Minimum Distance to the Target Element](test/leetcode/MinimumDistanceToTargetElement.kt)
 * [1935. Maximum Number of Words You Can Type](test/leetcode/MaxWordsThatCanBeTyped.kt)
+* [1945. Sum of Digits of String After Convert](test/leetcode/SumOfDigitsOfStringAfterConvert.kt)
 
 ### Exercism.io Exercises
 
