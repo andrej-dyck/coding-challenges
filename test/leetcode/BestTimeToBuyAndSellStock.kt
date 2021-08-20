@@ -25,13 +25,13 @@ import org.junit.jupiter.params.provider.*
  * - 0 <= prices[i] <= 10^4
  */
 fun maxProfit(stockPrices: Array<Int>) =
-    stockPrices.fold(MaxProfit()) { purchase, p ->
-        purchase.maximizeWith(p)
+    stockPrices.fold(Profit(0)) { profit, price ->
+        profit.maximizeWith(price)
     }.value
 
-class MaxProfit(val value: Int = 0, private val minPrice: Int = Int.MAX_VALUE) {
+class Profit(val value: Int, private val minPrice: Int = Int.MAX_VALUE) {
 
-    fun maximizeWith(price: Int) = MaxProfit(
+    fun maximizeWith(price: Int) = Profit(
         value = maxOf(value, price - minPrice),
         minPrice = minOf(minPrice, price)
     )
@@ -52,7 +52,7 @@ class BestTimeToBuyAndSellStockTest {
         "[7,6,4,3,1]; 0",
         delimiter = ';'
     )
-    fun `number of students to move to achieve asc order`(
+    fun `maximum profit that can be achieved buying and selling stocks`(
         @ConvertWith(IntArrayArg::class) stockPrices: Array<Int>,
         expectedProfit: Int
     ) {
