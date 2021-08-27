@@ -24,7 +24,13 @@ import org.junit.jupiter.params.provider.*
  * - 0 <= nums[i] <= n
  * - All the numbers of nums are unique.
  */
-fun missingNumber(nums: List<Int>) =
+val missingNumber = ::missingNumberViaGauss
+
+fun missingNumberViaGauss(nums: List<Int>) = sum0ToN(nums.size) - nums.sum()
+fun sum0ToN(n: Int) = (n * (n + 1)) / 2 // gauss summation
+
+@Suppress("unused")
+fun missingNumberViaHashSet(nums: List<Int>) =
     with(nums.toHashSet()) {
         (0..nums.size).first { !contains(it) }
     }
