@@ -24,15 +24,15 @@ import org.junit.jupiter.params.provider.*
  * - 0 <= nums[i] <= n
  * - All the numbers of nums are unique.
  */
-val missingNumber = ::missingNumberViaGauss
-
-fun missingNumberViaGauss(nums: List<Int>) = sum0ToN(nums.size) - nums.sum()
+fun missingNumber(nums: List<Int>) = sum0ToN(nums.size) - nums.sum()
 fun sum0ToN(n: Int) = (n * (n + 1)) / 2 // gauss summation
 
-@Suppress("unused")
-fun missingNumberViaHashSet(nums: List<Int>) =
+/**
+ * What if there are multiple missing numbers?
+ */
+fun missingNumbers(n: Int, nums: List<Int>) =
     with(nums.toHashSet()) {
-        (0..nums.size).first { !contains(it) }
+        (0..n).filter { !contains(it) }
     }
 
 /**
@@ -56,6 +56,26 @@ class MissingNumberTest {
             missingNumber(nums.toList())
         ).isEqualTo(
             missingNumber
+        )
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "5; [3,0,1]; [2,4,5]",
+        "2; [0,1]; [2]",
+        "9; []; [0,1,2,3,4,5,6,7,8,9]",
+        "9; [9,8,6,4,2,3,5,7,0,1]; []",
+        delimiter = ';'
+    )
+    fun `missing numbers in the range 0 to n`(
+        n: Int,
+        @ConvertWith(IntArrayArg::class) nums: Array<Int>,
+        @ConvertWith(IntArrayArg::class) missingNumbers: Array<Int>
+    ) {
+        assertThat(
+            missingNumbers(n, nums.toList())
+        ).containsExactlyElementsOf(
+            missingNumbers.asIterable()
         )
     }
 }
