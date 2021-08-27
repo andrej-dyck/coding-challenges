@@ -1,6 +1,7 @@
 package leetcode
 
 import lib.*
+import net.jqwik.api.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.*
 import org.junit.jupiter.params.converter.*
@@ -23,9 +24,9 @@ import org.junit.jupiter.params.provider.*
  * - 0 <= nums[i] <= n
  * - All the numbers of nums are unique.
  */
-fun missingNumberIn(nums: Array<Int>) =
+fun missingNumber(nums: List<Int>) =
     with(nums.toHashSet()) {
-        (1..nums.size).firstOrNull { !contains(it) }
+        (0..nums.size).first { !contains(it) }
     }
 
 /**
@@ -46,9 +47,28 @@ class MissingNumberTest {
         missingNumber: Int
     ) {
         assertThat(
-            missingNumberIn(nums)
+            missingNumber(nums.toList())
         ).isEqualTo(
             missingNumber
         )
     }
+}
+
+class MissingNumberPropertyBasedTest {
+
+    @Property
+    fun `missing number in the range 0 to n`(@ForAll("1 to 10000") n: Int) {
+        val missingNumber = (0..n).random()
+        val numbers = (0..n).filterNot { it == missingNumber }.shuffled()
+
+        assertThat(
+            missingNumber(numbers)
+        ).isEqualTo(
+            missingNumber
+        )
+    }
+
+    @Provide("1 to 10000")
+    @Suppress("unused")
+    private fun numbers() = Arbitraries.integers().between(1, 10000)
 }
