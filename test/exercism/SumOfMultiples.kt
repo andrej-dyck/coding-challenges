@@ -98,7 +98,7 @@ class ArithmeticSumOfMultiples(numbers: Set<Int>, maxMultiple: Int) : SumOfMulti
      * Sum of all multiples: S(n1) + S(n2) + S(n3) + ...
      */
     private fun Set<Int>.sumOfAllMultiplesUpTo(maxMultiple: Int) =
-        sumBy { sumOfMultiplesOfUpTo(it, maxMultiple) }
+        sumOf { sumOfMultiplesOfUpTo(it, maxMultiple) }
 
     /**
      * Sum of n*(1..N) where N = (L-1) / n
@@ -121,11 +121,11 @@ class ArithmeticSumOfMultiples(numbers: Set<Int>, maxMultiple: Int) : SumOfMulti
      */
     private fun Set<Int>.sumOfCommonMultiplesUpTo(maxMultiple: Int) =
         if (size == 0) 0
-        else (2..size).map {
-            windowed(it).sumBy { slice ->
+        else (2..size).sumOf {
+            windowed(it).sumOf { slice ->
                 sumOfMultiplesOfUpTo(slice.lcm(), maxMultiple)
             }
-        }.sum()
+        }
 }
 
 /**
