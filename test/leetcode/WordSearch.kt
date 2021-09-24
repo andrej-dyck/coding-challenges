@@ -40,7 +40,8 @@ fun Board.findPath(word: String, xys: Coordinates = xys(), path: Path = emptySeq
     else xys
         .filter { word.first() == maybeValue(it) && it !in path }
         .map { findPath(word.drop(1), it.neighbors(), path + it) }
-        .find { it.any() } ?: emptySequence()
+        .find { it.any() }
+        .orEmpty()
 
 private fun Board.xys() =
     asSequence().flatMapIndexed { y, r -> r.mapIndexed { x, _ -> XY(x, y) } }

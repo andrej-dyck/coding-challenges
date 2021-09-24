@@ -50,7 +50,7 @@ class FizzBuzzCycles : FizzBuzz {
         fizzBuzzes().take(abs(number)).lastOrNull() ?: number.toString()
 
     private fun fizzBuzzes() =
-        fizzes.zip(buzzes) { a, b -> a?.plus(b ?: "") ?: b }
+        fizzes.zip(buzzes) { a, b -> a?.plus(b.orEmpty()) ?: b }
 
     private val fizzes by lazy {
         sequenceOf(null, null, "Fizz").cycle()

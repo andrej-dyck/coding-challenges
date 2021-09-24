@@ -25,9 +25,9 @@ import org.junit.jupiter.params.provider.*
  * - 1 <= heights[i] <= 100
  */
 fun numberOfStudentsToMove(heights: Array<Int>): Int =
-    heights.zip(heights.sortedArray())
-        .filter { it.first != it.second }
-        .count()
+    heights
+        .zip(heights.sortedArray())
+        .count { it.first != it.second }
 
 /**
  * Unit tests

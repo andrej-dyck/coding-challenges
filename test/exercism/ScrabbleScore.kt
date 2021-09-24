@@ -56,6 +56,6 @@ class ScrabbleScoreTest {
         "abcdefghijklmnopqrstuvwxyz, 87"
     )
     fun test(input: String?, expectedOutput: Int) {
-        assertEquals(expectedOutput, ScrabbleScore.scoreWord(input ?: ""))
+        assertEquals(expectedOutput, ScrabbleScore.scoreWord(input.orEmpty()))
     }
 }

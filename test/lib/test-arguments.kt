@@ -6,21 +6,21 @@ class IntArrayArg : TypedArgumentConverter<String, Array<Int>>(
     String::class.java, Array<Int>::class.java
 ) {
     override fun convert(source: String?) =
-        source?.toArray { toInt() } ?: emptyArray()
+        source.orEmpty().toArray { toInt() }
 }
 
 class IntMatrixArg : TypedArgumentConverter<String, Array<Array<Int>>>(
     String::class.java, Array<Array<Int>>::class.java
 ) {
     override fun convert(source: String?) =
-        source?.toArray { toArray { toInt() } } ?: emptyArray()
+        source.orEmpty().toArray { toArray { toInt() } }
 }
 
 class StringArrayArg : TypedArgumentConverter<String, Array<String>>(
     String::class.java, Array<String>::class.java
 ) {
     override fun convert(source: String?) =
-        source?.toArray { this.removeSurrounding("'") } ?: emptyArray()
+        source.orEmpty().toArray { this.removeSurrounding("'") }
 }
 
 inline fun <reified T> String.toArray(
