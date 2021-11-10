@@ -1,10 +1,6 @@
-import io.gitlab.arturbosch.detekt.Detekt
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "1.5.30"
-    id("io.gitlab.arturbosch.detekt").version("1.17.1")
+    kotlin("jvm") version "1.5.31"
+    id("io.gitlab.arturbosch.detekt").version("1.18.1")
 }
 
 group = "ad.kata"
@@ -18,43 +14,30 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib")) // for Kotlin sources
-
     // junit 5
-    testImplementation(platform("org.junit:junit-bom:5.7.2"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.7.2")
-    testImplementation("org.assertj:assertj-core:3.20.2")
-    testImplementation("net.jqwik:jqwik:1.5.4")
-}
-
-/* Compile to JVM 8 */
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    testImplementation(platform("org.junit:junit-bom:5.8.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    // assertJ
+    testImplementation("org.assertj:assertj-core:3.21.0")
+    // jqwik
+    testImplementation("net.jqwik:jqwik:1.5.6")
 }
 
 /* Source sets by Kotlin conventions /src and /test */
-sourceSets.getByName("main") {
-    withConvention(KotlinSourceSet::class) {
-        kotlin.srcDirs("src/")
-    }
-}
-
-sourceSets.getByName("test") {
-    withConvention(KotlinSourceSet::class) {
-        kotlin.srcDirs("test/")
+val sources = setOf(
+    "main" to "src/",
+    "test" to "test/"
+)
+kotlin {
+    sources.forEach { (set, dir) ->
+        sourceSets[set].apply { kotlin.srcDir(dir) }
     }
 }
 
 /* Detekt */
 detekt {
-    input = files("src/", "test/")
+    source = files(sources.map { it.second })
     config = files("detekt.yml")
-}
-
-tasks.withType<Detekt>().configureEach {
-    jvmTarget = "1.8"
 }
 
 /* Check with Junit 5 only */
