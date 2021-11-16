@@ -69,6 +69,7 @@ _Note:_ With these exercises my goal was to design proper object-oriented code.
 ### Miscellaneous
 
 * [Binomial Coefficient](test/misc/BinomialCoefficient.kt)
+* [Coin Changer](test/misc/CoinChanger.kt)
 * [DSFinV-K CSV Fields for TSS Certificate](test/misc/TseCertificateCsvFields.kt)
 * [Factorial](test/misc/Factorial.kt)
 * [Fizz Buzz](test/misc/FizzBuzz.kt)
