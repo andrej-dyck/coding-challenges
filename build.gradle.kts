@@ -50,6 +50,6 @@ tasks.test {
 
 /* Gradle Wrapper */
 tasks.withType<Wrapper> {
-    gradleVersion = "7.0"
+    gradleVersion = "7.3"
     distributionType = Wrapper.DistributionType.BIN
 }
