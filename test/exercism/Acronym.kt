@@ -41,7 +41,7 @@ private fun String.replaceNonLettersWith(replacement: String) =
     replace("""[^a-zA-Z']""".toRegex(), replacement)
 
 private fun String.splitAtWhitespaces() =
-    split("""\s+""".toRegex())
+    splitToSequence("""\s+""".toRegex())
 
 /**
  * Unit Tests
