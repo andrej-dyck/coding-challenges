@@ -1,8 +1,13 @@
 # Coding Challenges
 
+![build](https://github.com/andrej-dyck/coding-challenges/actions/workflows/gradle-ci.yml/badge.svg?branch=main)
+
 This repository contains some short coding exercises solved in Kotlin.
 
-Build with `./gradlew build`. Test with `./gradlew test`.
+### Build & Check
+```
+./gradlew build
+```
 
 ### LeetCode Problems
 
