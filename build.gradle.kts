@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.6.0"
+    kotlin("jvm") version "1.6.10"
     id("io.gitlab.arturbosch.detekt").version("1.19.0")
 }
 
@@ -14,7 +14,7 @@ repositories {
 dependencies {
     // junit 5
     testImplementation(platform("org.junit:junit-bom:5.8.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     // assertJ
     testImplementation("org.assertj:assertj-core:3.21.0")
     // jqwik
