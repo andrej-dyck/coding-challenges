@@ -1,2 +1,1 @@
-rootProject.name = "ad.kata.coding-challenges"
-
+rootProject.name = "Coding Challenges"
