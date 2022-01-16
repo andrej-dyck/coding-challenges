@@ -28,7 +28,7 @@ import org.junit.jupiter.params.provider.*
  * - 1 <= accounts[i][j] <= 100
  */
 fun maximumWealth(accounts: Array<Array<Int>>) =
-    accounts.map { it.sum() }.maxOrNull()
+    accounts.maxOfOrNull { it.sum() }
 
 /**
  * Unit tests
