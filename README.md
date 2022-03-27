@@ -71,6 +71,7 @@ _Note:_ With these exercises my goal was to design proper object-oriented code.
 * [Space Age](test/exercism/SpaceAge.kt)
 * [Sum of Multiples](test/exercism/SumOfMultiples.kt)
 * [Triangle](test/exercism/Triangle.kt)
+* [Word Count](test/exercism/WordCount.kt)
 
 ### Miscellaneous
 
