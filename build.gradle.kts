@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "1.6.10"
-    id("io.gitlab.arturbosch.detekt") version "1.19.0"
+    kotlin("jvm") version "1.6.21"
+    id("io.gitlab.arturbosch.detekt") version "1.20.0"
 }
 
 group = "ad.kata"
@@ -13,19 +13,16 @@ repositories {
 
 dependencies {
     // junit 5
-    testImplementation(platform("org.junit:junit-bom:5.8.1"))
+    testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     // assertJ
     testImplementation("org.assertj:assertj-core:3.22.0")
     // jqwik
-    testImplementation("net.jqwik:jqwik:1.6.4")
+    testImplementation("net.jqwik:jqwik:1.6.5")
 }
 
 /* Source sets by Kotlin conventions /src and /test */
-val sources = setOf(
-    "main" to "src/",
-    "test" to "test/"
-)
+val sources = setOf("main" to "src/", "test" to "test/")
 kotlin {
     sources.forEach { (set, dir) ->
         sourceSets[set].apply { kotlin.srcDir(dir) }
@@ -48,6 +45,6 @@ tasks.test {
 
 /* Gradle Wrapper */
 tasks.withType<Wrapper> {
-    gradleVersion = "7.3"
+    gradleVersion = "7.4.2"
     distributionType = Wrapper.DistributionType.BIN
 }

@@ -49,11 +49,11 @@ interface Luhn {
         private fun List<Int>.everySecondAsDigitSumOfDoubled() =
             mapIndexed { index, value ->
                 if (index.isEven()) value
-                else DIGIT_SUM_OF_DOUBLED[value]
+                else digitOfSumOfDoubled[value]
             }
 
         companion object {
-            private val DIGIT_SUM_OF_DOUBLED = arrayListOf(0, 2, 4, 6, 8, 1, 3, 5, 7, 9)
+            private val digitOfSumOfDoubled = arrayListOf(0, 2, 4, 6, 8, 1, 3, 5, 7, 9)
         }
     }
 }

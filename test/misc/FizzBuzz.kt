@@ -40,7 +40,6 @@ class FizzBuzzLookup : FizzBuzz {
     }
 }
 
-
 /**
  * via Sequence Cycles
  */
