@@ -83,3 +83,4 @@ _Note:_ With these exercises my goal was to design proper object-oriented code.
 * [Fizz Buzz](test/misc/FizzBuzz.kt)
 * [Sieve of Eratosthenes](test/misc/SieveOfEratosthenes.kt)
 * [Unconditional Rock-Paper-Scissors](test/misc/UnconditionalRockPaperScissors.kt)
+* [Word Wrap](test/misc/WordWrap.kt)
