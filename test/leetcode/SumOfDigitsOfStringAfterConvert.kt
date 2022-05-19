@@ -31,40 +31,23 @@ import org.junit.jupiter.params.provider.ValueSource
  * - 1 <= k <= 10
  * - s consists of lowercase English letters.
  */
-fun getLucky(letters: String, k: Int = 1) = sumOfDigits(letterPositions(letters), k)
+fun getLucky(word: String, k: Int = 0): Int =
+    sumOfDigits(
+        alphabetPositions(word).joinToString(""),
+        iterations = k
+    ).toIntOrNull() ?: 0
 
-val sumOfDigits = ::sumOfDigitsViaSequence // ::sumOfDigitsViaRecursion
+/* convert */
+private fun alphabetPositions(word: String) = word.mapNotNull(Char::alphabetPosition)
 
-// version with recursion
-fun sumOfDigitsViaRecursion(numbers: List<Int>, k: Int) = when {
-    k < 1 -> 0
-    else -> sumOfDigits(numbers.digits().sum(), k - 1)
-}
+fun Char.isAlphabetLetter() = this in 'a'..'z'
+fun Char.alphabetPosition() = if (isAlphabetLetter()) code - 'a'.code + 1 else null
 
-tailrec fun sumOfDigits(number: Int, repetitions: Int): Int = when {
-    repetitions < 1 || number in 0..9 -> number
-    else -> sumOfDigits(number.digits().sum(), repetitions - 1)
-}
-
-// version with sequences
-fun sumOfDigitsViaSequence(numbers: List<Int>, k: Int) =
-    sumOfDigitsSequence { numbers.digits().sum() }
-        .take(k)
-        .lastOrNull() ?: 0
-
-fun sumOfDigitsSequence(number: () -> Int) =
-    generateSequence(number) { it.digits().sum() }
-
-// digits of integers
-fun List<Int>.digits() = flatMap(Int::digits)
-fun Int.digits() = when (this) {
-    in 0..9 -> listOf(this)
-    else -> "$this".map(Char::digitToInt)
-}
-
-// english lowercase letter positions
-fun letterPositions(letters: String) = letters.map(Char::letterPosition)
-fun Char.letterPosition() = require { it in 'a'..'z' }.code - 'a'.code + 1
+/* transform */
+private fun sumOfDigits(number: String, iterations: Int) =
+    generateSequence(number) { it.sumOf(Char::digitToInt).toString() }
+        .take(iterations + 1)
+        .last()
 
 /**
  * Unit Tests
@@ -77,25 +60,38 @@ class SumOfDigitsOfStringAfterConvertTest {
         "a, 1",
         "b, 2",
         "c, 3",
+        "z, 26",
+        "abc, 123",
+        "xyz, 242526"
+    )
+    fun `with k = 0, it just converts to lower-case letters alphabet positions`(
+        englishLetters: String,
+        expectedSum: Int
+    ) {
+        assertThat(getLucky(englishLetters)).isEqualTo(expectedSum)
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "'', 0",
+        "a, 1",
+        "b, 2",
+        "c, 3",
         "z, 8", // 26 -> 2+6 -> 8
         "abc, 6",
         "xyz, 21" // 24,25,26 -> 2+4+2+5+2+6 -> 21
     )
-    fun `sum of digits of the english lower-case letter positions`(
+    fun `with k = 1, it's the sum of digits after conversion`(
         englishLetters: String,
-        expectedSumAfterConversion: Int
+        expectedSum: Int
     ) {
-        assertThat(
-            getLucky(englishLetters)
-        ).isEqualTo(
-            expectedSumAfterConversion
-        )
+        assertThat(getLucky(englishLetters, k = 1)).isEqualTo(expectedSum)
     }
 
     @ParameterizedTest
     @CsvSource(
         "'', 5, 0",
-        "a, 0, 0",
+        "a, 0, 1",
         "a, 2, 1",
         "z, 2, 8", // 26 -> 2+6 -> 8
         "xyz, 2, 3", // 24,25,26 -> 2+4+2+5+2+6 -> 21 -> 2+1 -> 3
@@ -106,23 +102,24 @@ class SumOfDigitsOfStringAfterConvertTest {
         "zbax, 2, 8", // 26,2,1,24 -> 2+6+2+1+2+4 ➝ 17 -> 1+7 -> 8
         "abcdefghijklmnopqrstuvwxyz, 10, 9"
     )
-    fun `sum of digits repeated k-times, starting with the english lower-case letter positions`(
+    fun `with k greater than 1, it's the sum of digits of the result of previous conversion`(
         englishLetters: String,
         k: Int,
-        expectedSumAfterConversion: Int
+        expectedSum: Int
     ) {
-        assertThat(
-            getLucky(englishLetters, k)
-        ).isEqualTo(
-            expectedSumAfterConversion
-        )
+        assertThat(getLucky(englishLetters, k)).isEqualTo(expectedSum)
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["A", "a b", "1", "!"])
-    fun `throws arg exception when string comprises chars other than a-z`(s: String) {
-        assertThrows(IllegalArgumentException::class.java) {
-            getLucky(s)
-        }
+    @CsvSource(
+        "A, 0",
+        "1, 0",
+        "!, 0",
+        "' ', 0",
+        "a a, 11",
+        "a1a2b3, 112",
+    )
+    fun `ignores all non-alphabet characters`(s: String, expectedSum: Int) {
+        assertThat(getLucky(s)).isEqualTo(expectedSum)
     }
 }
