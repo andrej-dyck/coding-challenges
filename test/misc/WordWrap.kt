@@ -181,6 +181,7 @@ class WordWrapTest {
     }
 
     @Provide
+    @Suppress("CascadingCallWrapping")
     fun englishWords(): ListArbitrary<String> =
         Arbitraries
             .strings().alpha().ofMinLength(1).ofMaxLength(20)

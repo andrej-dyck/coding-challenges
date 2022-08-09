@@ -30,7 +30,9 @@ import org.junit.jupiter.params.provider.*
 fun formattedLicenseKey(licenceKey: String, groupSize: Int): String =
     licenceKey
         .remove("-")
-        .reversed().blocks("-", groupSize).reversed()
+        .reversed()
+        .blocks("-", groupSize)
+        .reversed()
         .uppercase()
 
 fun String.remove(s: String) = replace(s, "")

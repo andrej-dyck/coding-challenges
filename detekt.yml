@@ -2,10 +2,10 @@ build:
   maxIssues: 0
   excludeCorrectable: false
   weights:
-  # complexity: 2
-  # LongParameterList: 1
-  # style: 1
-  # comments: 1
+    # complexity: 2
+    # LongParameterList: 1
+    # style: 1
+    # comments: 1
 
 config:
   validation: true
@@ -33,11 +33,11 @@ processors:
 console-reports:
   active: true
   exclude:
-    - 'ProjectStatisticsReport'
-    - 'ComplexityReport'
-    - 'NotificationReport'
-    - 'FindingsReport'
-    - 'FileBasedFindingsReport'
+     - 'ProjectStatisticsReport'
+     - 'ComplexityReport'
+     - 'NotificationReport'
+     - 'FindingsReport'
+     - 'FileBasedFindingsReport'
   #  - 'LiteFindingsReport'
 
 output-reports:
@@ -46,6 +46,7 @@ output-reports:
   # - 'TxtOutputReport'
   # - 'XmlOutputReport'
   # - 'HtmlOutputReport'
+  # - 'MdOutputReport'
 
 comments:
   active: true
@@ -62,6 +63,9 @@ comments:
   EndOfSentenceFormat:
     active: false
     endOfSentenceFormat: '([.?!][ \t\n\r\f<])|([.?!:]$)'
+  KDocReferencesNonPublicProperty:
+    active: false
+    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
   OutdatedDocumentation:
     active: false
     matchTypeParameters: true
@@ -135,6 +139,15 @@ complexity:
   NestedBlockDepth:
     active: true
     threshold: 2 # DIFFERENT FROM DEFAULT (4)
+  NestedScopeFunctions:
+    active: true # DIFFERENT FROM DEFAULT (1)
+    threshold: 1
+    functions:
+      - 'kotlin.apply'
+      - 'kotlin.run'
+      - 'kotlin.with'
+      - 'kotlin.let'
+      - 'kotlin.also'
   ReplaceSafeCallChainWithRun:
     active: false
   StringLiteralDuplication:
@@ -161,19 +174,19 @@ coroutines:
   GlobalCoroutineUsage:
     active: false
   InjectDispatcher:
-    active: false
+    active: true
     dispatcherNames:
       - 'IO'
       - 'Default'
       - 'Unconfined'
   RedundantSuspendModifier:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   SleepInsteadOfDelay:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   SuspendFunWithCoroutineScopeReceiver:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: false
   SuspendFunWithFlowReturnType:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
 
 empty-blocks:
   active: true
@@ -220,7 +233,7 @@ exceptions:
       - 'hashCode'
       - 'toString'
   InstanceOfCheckForException:
-    active: false
+    active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
   NotImplementedDeclaration:
     active: true # DIFFERENT FROM DEFAULT (false)
@@ -329,7 +342,7 @@ naming:
     excludeClassPattern: '$^'
     ignoreOverridden: true
   InvalidPackageDeclaration:
-    active: false
+    active: true
     rootPackage: ''
     requireRootInDeclaration: false
   LambdaParameterNaming:
@@ -342,7 +355,7 @@ naming:
     active: true
     ignoreOverridden: true
   NoNameShadowing:
-    active: false
+    active: true
   NonBooleanPropertyPrefixedWithIs:
     active: false
   ObjectPropertyNaming:
@@ -375,6 +388,9 @@ performance:
   active: true
   ArrayPrimitive:
     active: false # DIFFERENT FROM DEFAULT (true)
+  CouldBeSequence:
+    active: true # DEFAULT FROM DEFAULT (false)
+    threshold: 3
   ForEachOnRange:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
@@ -387,7 +403,7 @@ performance:
 potential-bugs:
   active: true
   AvoidReferentialEquality:
-    active: false
+    active: true
     forbiddenTypePatterns:
       - 'kotlin.String'
   CastToNullableType:
@@ -397,7 +413,7 @@ potential-bugs:
   DontDowncastCollectionTypes:
     active: true # DIFFERENT FROM DEFAULT (false)
   DoubleMutabilityForCollection:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
     mutableTypes:
       - 'kotlin.collections.MutableList'
       - 'kotlin.collections.MutableMap'
@@ -420,9 +436,9 @@ potential-bugs:
   ExplicitGarbageCollectionCall:
     active: true
   HasPlatformType:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   IgnoredReturnValue:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
     restrictToAnnotatedMethods: true
     returnValueAnnotations:
       - '*.CheckResult'
@@ -446,7 +462,7 @@ potential-bugs:
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
     ignoreOnClassesPattern: ''
   MapGetWithNotNullAssertionOperator:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   MissingPackageDeclaration:
     active: true # DIFFERENT FROM DEFAULT (false)
     excludes: ['**/*.kts']
@@ -466,7 +482,7 @@ potential-bugs:
   UnnecessarySafeCall:
     active: true
   UnreachableCatchBlock:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   UnreachableCode:
     active: true
   UnsafeCallOnNullableType:
@@ -475,9 +491,9 @@ potential-bugs:
   UnsafeCast:
     active: true
   UnusedUnaryOperator:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   UselessPostfixExpression:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   WrongEqualsTypeParameter:
     active: true
 
@@ -485,6 +501,9 @@ style:
   active: true
   CanBeNonNullable:
     active: true # DIFFERENT FROM DEFAULT (false)
+  CascadingCallWrapping:
+    active: true
+    includeElvis: true
   ClassOrdering:
     active: false
   CollapsibleIfStatements:
@@ -504,7 +523,7 @@ style:
   ExplicitCollectionElementAccessMethod:
     active: true # DIFFERENT FROM DEFAULT (false)
   ExplicitItLambdaParameter:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   ExpressionBodySyntax:
     active: true # DIFFERENT FROM DEFAULT (false)
     includeLineWrapping: true # DIFFERENT FROM DEFAULT (false)
@@ -531,8 +550,11 @@ style:
     ignorePackages:
       - '*.internal'
       - '*.internal.*'
+  ForbiddenSuppress:
+    active: false
+    rules: []
   ForbiddenVoid:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
     ignoreOverridden: false
     ignoreUsageInGenerics: false
   FunctionOnlyReturningConstant:
@@ -550,8 +572,8 @@ style:
     active: true
     maxJumpCount: 1
   MagicNumber:
-    active: true # DIFFERENT FROM DEFAULT (false)
-    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
+    active: true
+    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**', '**/*.kts']
     ignoreNumbers:
       - '-1'
       - '0'
@@ -571,6 +593,9 @@ style:
     active: false
   MandatoryBracesLoops:
     active: true # DIFFERENT FROM DEFAULT (false)
+  MaxChainedCallsOnSameLine:
+    active: true # DIFFERENT FROM DEFAULT (false)
+    maxChainedCalls: 3 # DIFFERENT FROM DEFAULT (5)
   MaxLineLength:
     active: true
     maxLineLength: 120
@@ -589,8 +614,10 @@ style:
     active: false # DIFFERENT FROM DEFAULT (true)
   NoTabs:
     active: true # DIFFERENT FROM DEFAULT (false)
-  ObjectLiteralToLambda:
+  NullableBooleanCheck:
     active: true # DIFFERENT FROM DEFAULT (false)
+  ObjectLiteralToLambda:
+    active: true
   OptionalAbstractKeyword:
     active: true
   OptionalUnit:
@@ -636,8 +663,10 @@ style:
     active: false
   UnnecessaryApply:
     active: true
-  UnnecessaryFilter:
+  UnnecessaryBackticks:
     active: true # DIFFERENT FROM DEFAULT (false)
+  UnnecessaryFilter:
+    active: true
   UnnecessaryInheritance:
     active: true
   UnnecessaryInnerClass:
@@ -656,13 +685,13 @@ style:
     active: true
     allowedNames: '(_|ignored|expected|serialVersionUID)'
   UseAnyOrNoneInsteadOfFind:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   UseArrayLiteralsInAnnotations:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   UseCheckNotNull:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   UseCheckOrError:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   UseDataClass:
     active: false
     allowVars: false
@@ -673,21 +702,22 @@ style:
   UseIfInsteadOfWhen:
     active: false
   UseIsNullOrEmpty:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   UseOrEmpty:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   UseRequire:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   UseRequireNotNull:
-    active: true # DIFFERENT FROM DEFAULT (false)
+    active: true
   UselessCallOnNotNull:
     active: true
   UtilityClassWithPublicConstructor:
     active: true
   VarCouldBeVal:
     active: true
+    ignoreLateinitVar: false
   WildcardImport:
-    active: false # DIFFERENT FROM DEFAULT (true)
+    active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
     excludeImports:
       - 'java.util.*'
