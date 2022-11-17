@@ -36,24 +36,18 @@ fun validTicTacToe(board: Array<String>) = TicTacToeBoard(board).isInValidState
 class TicTacToeBoard(private val board: Array<String>) {
 
     val isInValidState by lazy {
-        (equalCountOfXsAndOs || atMostOneMoreXThenOs) && atMostOneWinner
-    }
-
-    private val equalCountOfXsAndOs by lazy {
-        countOfXsAndOs.let { (Xs, Os) -> Xs == Os }
-    }
-
-    private val atMostOneMoreXThenOs by lazy {
-        countOfXsAndOs.let { (Xs, Os) -> Xs == Os + 1 }
-    }
-
-    private val countOfXsAndOs by lazy {
-        board.joinToString().let { c ->
-            c.count { it == 'X' } to c.count { it == 'O' }
+        when {
+            xWon -> !oWon && xs == os + 1
+            oWon -> !xWon && xs == os
+            else -> xs == os || xs == os + 1
         }
     }
 
-    private val atMostOneWinner by lazy { !(isWinner('X') && isWinner('O')) }
+    val xWon by lazy { isWinner('X') }
+    val oWon by lazy { isWinner('O') }
+
+    private val xs by lazy { board.joinToString().count { it == 'X' } }
+    private val os by lazy { board.joinToString().count { it == 'O' } }
 
     private fun isWinner(c: Char): Boolean =
         anyRowContainsOnly(c)
@@ -86,39 +80,98 @@ class ValidTicTacToeStateTest {
     @ParameterizedTest
     @ValueSource(
         strings = [
-            "[\"   \", \" X \", \"   \"]",
+            "[\"   \", \"   \", \"   \"]",
             "[\"   \", \" XO\", \"   \"]",
-            "[\" X \", \" XO\", \"   \"]",
             "[\" XO\", \" XO\", \"   \"]",
-            "[\" XO\", \" XO\", \" X \"]",
+            "[\" X \", \" XO\", \" O \"]",
             "[\"XOX\", \"O O\", \"XOX\"]",
-            "[\"OXO\", \"OXX\", \"XOX\"]",
-            "[\" X \", \" XX\", \"OOO\"]",
-            "[\"XO \", \" XO\", \"O X\"]",
-            "[\" OX\", \" XO\", \"X O\"]",
         ]
     )
-    fun `valid board states`(board: String) {
-        println(board)
+    fun `valid board when same count of Xs and Os (and no winner)`(board: String) =
+        assertIsValid(board)
 
-        assertThat(
-            validTicTacToe(board.toArray { removeSurrounding("\"") })
-        ).isTrue
-    }
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "[\"   \", \" X \", \"   \"]",
+            "[\" X \", \" XO\", \"   \"]",
+            "[\" XO\", \" XO\", \" X \"]",
+            "[\"OXO\", \"OXX\", \"XOX\"]",
+        ]
+    )
+    fun `valid board when count of Xs is 1 more than Os (and no winner)`(board: String) =
+        assertIsValid(board)
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "[\"XXX\", \"   \", \"O O\"]",
+            "[\" X \", \" XO\", \" XO\"]",
+            "[\"XO \", \" XO\", \"  X\"]",
+        ]
+    )
+    fun `valid board when X won and count of Os is 1 less (and O did not win)`(board: String) =
+        assertIsValid(board)
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "[\"OOO\", \" X \", \"X X\"]",
+            "[\" XO\", \" XO\", \"X O\"]",
+            "[\"OX \", \" OX\", \"O X\"]",
+        ]
+    )
+    fun `valid board when O won and count of Xs is equal (and X did not win)`(board: String) =
+        assertIsValid(board)
 
     @ParameterizedTest
     @ValueSource(
         strings = [
             "[\"O  \", \"   \", \"   \"]",
-            "[\"XOX\", \" X \", \"   \"]",
-            "[\"XXX\", \"   \", \"OOO\"]",
+            "[\"OO \", \"XXX\", \" OO\"]",
+            "[\"OOO\", \" X \", \"   \"]",
         ]
     )
-    fun `invalid board states`(board: String) {
-        println(board)
+    fun `invalid board when count of Os is more than Xs`(board: String) =
+        assertIsInvalid(board)
 
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "[\"OOO\", \"XXX\", \"   \"]",
+            "[\"XO \", \"XO \", \"XO \"]",
+        ]
+    )
+    fun `invalid board when two winners exist`(board: String) =
+        assertIsInvalid(board)
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "[\"XXX\", \" O \", \"O O\"]",
+        ]
+    )
+    fun `invalid board when X won and count of Os is equal`(board: String) =
+        assertIsInvalid(board)
+
+    @ParameterizedTest
+    @ValueSource(
+        strings = [
+            "[\"OOO\", \"XX \", \"X X\"]",
+        ]
+    )
+    fun `invalid board when O won and count of Xs is 1 more`(board: String) =
+        assertIsInvalid(board)
+
+    private fun assertIsValid(board: String) {
         assertThat(
             validTicTacToe(board.toArray { removeSurrounding("\"") })
-        ).isFalse
+        ).`as`("$board is valid").isTrue
+    }
+
+    private fun assertIsInvalid(board: String) {
+        assertThat(
+            validTicTacToe(board.toArray { removeSurrounding("\"") })
+        ).`as`("$board is invalid").isFalse
     }
 }
