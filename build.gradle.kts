@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.8.0"
     id("io.gitlab.arturbosch.detekt") version "1.21.0"
 }
 
@@ -13,25 +13,25 @@ repositories {
 
 dependencies {
     // JUnit 5
-    testImplementation(platform("org.junit:junit-bom:5.9.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
     // AssertJ
-    testImplementation("org.assertj:assertj-core:3.23.1")
+    testImplementation("org.assertj:assertj-core:3.24.1")
     // jqwik
-    testImplementation("net.jqwik:jqwik:1.6.5")
+    testImplementation("net.jqwik:jqwik:1.7.1")
 }
 
 /* Source sets by Kotlin conventions /src and /test */
-val sources = setOf("main" to "src/", "test" to "test/")
-kotlin {
-    sources.forEach { (set, dir) ->
-        sourceSets[set].apply { kotlin.srcDir(dir) }
-    }
-}
+sourceSets.main { kotlin.srcDirs("src/") }
+sourceSets.test { kotlin.srcDirs("test/") }
+
+/* Resources */
+sourceSets["main"].resources.srcDirs("resources")
+sourceSets["test"].resources.srcDirs("test-resources")
 
 /* Detekt */
 detekt {
-    source = files(sources.map { it.second })
+    source = files("src/", "test/")
     config = files("detekt.yml")
 }
 
