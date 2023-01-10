@@ -23,6 +23,7 @@ class StringArrayArg : TypedArgumentConverter<String, Array<String>>(
         source.orEmpty().toArray { this.removeSurrounding("'") }
 }
 
+@Suppress("CouldBeSequence")
 inline fun <reified T> String.toArray(
     parseElement: String.() -> T
 ): Array<T> =
